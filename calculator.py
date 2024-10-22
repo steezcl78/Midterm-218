@@ -1,6 +1,14 @@
 import os
 import importlib
+import logging
 from faker import Faker
+
+# Set up logging configuration
+logging.basicConfig(
+    level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler()]  # Logs to console
+)
 
 # Command Interface
 class Command:
