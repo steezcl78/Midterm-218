@@ -16,13 +16,7 @@ class Command:
         pass
 
 # Built-in commands (Add, Subtract, Multiply, Divide)
-class AddCommand(Command):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
 
-    def execute(self):
-        return self.x + self.y
 
 class SubtractCommand(Command):
     def __init__(self, x, y):
@@ -58,10 +52,10 @@ class CalculatorInvoker:
     def register(self, command_name, command):
         self._commands[command_name] = command
 
-    def execute(self, command_name):
+    def execute(self, command_name, *args):
         command = self._commands.get(command_name)
         if command:
-            return command.execute()
+            return command(*args).execute()
         else:
             return "Command not recognized"
 
@@ -71,10 +65,14 @@ class CalculatorInvoker:
         for filename in os.listdir(plugin_dir):
             if filename.endswith(".py") and filename != "__init__.py":
                 module_name = filename[:-3]  # Remove '.py' extension
-                module = importlib.import_module(f"plugins.{module_name}")
-                plugin_command_name = module.get_command_name()
-                plugin_command_class = module.get_command_class()
-                self.register(plugin_command_name, plugin_command_class)
+                try:
+                    module = importlib.import_module(f"plugins.{module_name}")
+                    plugin_command_name = module.get_command_name()
+                    plugin_command_class = module.get_command_class()
+                    # Registering the command without instantiation for dynamic use in the REPL
+                    self.register(plugin_command_name, plugin_command_class)
+                except AttributeError as e:
+                    logging.error(f"Error loading plugin '{module_name}': {e}")
 
 # REPL function
 def repl():
@@ -109,13 +107,11 @@ def repl():
             num2 = float(parts[2]) if len(parts) > 2 else None
 
             if command_name in invoker._commands:
-                # Register the command and execute
-                if command_name == "sqrt" and num2 is None:
-                    invoker.register(command_name, invoker._commands[command_name](num1))
-                    result = invoker.execute(command_name)
+                # Execute without re-registering
+                if num2 is None:
+                    result = invoker.execute(command_name, num1)
                 else:
-                    invoker.register(command_name, invoker._commands[command_name](num1, num2))
-                    result = invoker.execute(command_name)
+                    result = invoker.execute(command_name, num1, num2)
 
                 print(f"Result: {result}")
             else:
@@ -125,3 +121,4 @@ def repl():
 
 if __name__ == "__main__":
     repl()
+
