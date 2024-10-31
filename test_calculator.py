@@ -1,5 +1,5 @@
 import pytest
-from calculator import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
+from plugins.operations import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 
 # Test AddCommand
 def test_add_command():
