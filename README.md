@@ -25,11 +25,11 @@ Example:
 I used enviroment variables to set defaults. The code is in calculator.py.
 
 Example:
-
-"LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG").upper()  # Default to DEBUG level
+```
+LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG").upper()  # Default to DEBUG level
 LOG_FILE = os.getenv("LOG_FILE", "calculator.log")  # Default log file name
 PLUGIN_DIR = os.getenv("PLUGIN_DIR", "plugins")  # Default plugin directory"
-
+```
 
 
 I am returning log to both console and log file.
