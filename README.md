@@ -17,7 +17,8 @@ Example:
         return "add"
 
     def get_command_class():
-        return AddCommand"```
+        return AddCommand"
+```
 
     
     
@@ -34,22 +35,24 @@ PLUGIN_DIR = os.getenv("PLUGIN_DIR", "plugins")  # Default plugin directory"
 I am returning log to both console and log file.
 
 Example:
-
-"logging.basicConfig(
+```
+logging.basicConfig(
     level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(),  # Logs to console
         logging.FileHandler("calculator.log")  # Logs to a file named calculator.log
     ]
-)"
+)
+```
 
 
 I am using try/catch/exceptions to try and catch when the user inputs the proper or incorrect input format. This illustrates LBYL and EAFP
 
 Example:
 
-"try:
+```
+try:
             parts = user_input.split()
             command_name = parts[0].lower()
             num1 = float(parts[1])
@@ -66,9 +69,9 @@ Example:
             else:
                 print(f"Unknown command: {command_name}")
         except (ValueError, IndexError):
-            print("Invalid input. Use the format: <command> <number1> <number2>. Type 'exit' to quit.")"
+            print("Invalid input. Use the format: <command> <number1> <number2>. Type 'exit' to quit.")
 
-
+```
 
 Link to demo video: https://drive.google.com/file/d/1Tyv_uyF23FrjXtvqUiCzxQMS8Ipxh137/view?usp=sharing
 
