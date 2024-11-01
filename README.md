@@ -5,7 +5,7 @@ I used command design pattern in add, subtract, multiply, divide, power and sqro
 
 Example:
 
-"class AddCommand:
+```class AddCommand:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -13,11 +13,11 @@ Example:
     def execute(self):
         return self.x + self.y
 
-def get_command_name():
-    return "add"
+    def get_command_name():
+        return "add"
 
-def get_command_class():
-    return AddCommand"
+    def get_command_class():
+        return AddCommand"```
 
     
     
