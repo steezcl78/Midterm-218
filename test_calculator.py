@@ -1,7 +1,7 @@
-from calculator.plugins.add import AddCommand
-from calculator.plugins.divide import DivideCommand
-from calculator.plugins.multiply import MultiplyCommand
-from calculator.plugins.subtract import SubtractCommand
+from plugins.add import AddCommand
+from plugins.divide import DivideCommand
+from plugins.multiply import MultiplyCommand
+from plugins.subtract import SubtractCommand
 import pytest
 
 
