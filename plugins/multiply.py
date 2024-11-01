@@ -11,3 +11,6 @@ def get_command_name():
 
 def get_command_class():
     return MultiplyCommand
+
+def get_description():
+    return "Multiplication"

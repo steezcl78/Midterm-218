@@ -12,4 +12,5 @@ def get_command_name():
 def get_command_class():
     return AddCommand
 
-
+def get_description():
+    return "Addition"

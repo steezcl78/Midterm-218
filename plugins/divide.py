@@ -13,3 +13,6 @@ def get_command_name():
 
 def get_command_class():
     return DivideCommand
+
+def get_description():
+    return "Division"
