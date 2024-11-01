@@ -3,6 +3,11 @@ import importlib
 import logging
 from faker import Faker
 
+# Set up environment variables with defaults
+LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG").upper()  # Default to DEBUG level
+LOG_FILE = os.getenv("LOG_FILE", "calculator.log")  # Default log file name
+PLUGIN_DIR = os.getenv("PLUGIN_DIR", "plugins")  # Default plugin directory
+
 # Set up logging configuration to both console and file
 logging.basicConfig(
     level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
