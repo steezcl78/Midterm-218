@@ -10,14 +10,12 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]  # Logs to console
 )
 
-# Command Interface
-
-
 
 # Invoker with plugin support
 class CalculatorInvoker:
     def __init__(self):
         self._commands = {}
+        self._history = []  # Store the history of executed commands
 
     def register(self, command_name, command):
         self._commands[command_name] = command
@@ -25,7 +23,14 @@ class CalculatorInvoker:
     def execute(self, command_name, *args):
         command = self._commands.get(command_name)
         if command:
-            return command(*args).execute()
+            result = command(*args).execute()
+            # Store the command execution in history
+            self._history.append({
+                'command': command_name,
+                'args': args,
+                'result': result
+            })
+            return result
         else:
             return "Command not recognized"
 
@@ -44,6 +49,14 @@ class CalculatorInvoker:
                 except AttributeError as e:
                     logging.error(f"Error loading plugin '{module_name}': {e}")
 
+    def get_history(self):
+        # Returns the command history as a list of strings
+        return [
+            f"{entry['command']} {entry['args']} = {entry['result']}"
+            for entry in self._history
+        ]
+
+
 # REPL function
 def repl():
     invoker = CalculatorInvoker()
@@ -52,9 +65,10 @@ def repl():
     # Load available plugins
     invoker.load_plugins()
 
-    print("Simple Calculator REPL with Command Pattern, Faker, and Plugins")
+    print("Simple Calculator REPL with Command Pattern, Faker, Plugins, and History")
     print("Enter expressions (e.g., 'add 10 5', 'multiply 2 3', 'power 3 2'). Type 'exit' to quit.")
     print("Use 'random' to generate random numbers with Faker.")
+    print("Use 'history' to view the command history.")
 
     while True:
         user_input = input("calc> ").strip()
@@ -68,6 +82,17 @@ def repl():
             num1 = faker.random_number(digits=2)
             num2 = faker.random_number(digits=2)
             print(f"Generated random numbers: {num1}, {num2}")
+            continue
+
+        if user_input.lower() == 'history':
+            # Display command history
+            history = invoker.get_history()
+            if history:
+                print("Command History:")
+                for entry in history:
+                    print(entry)
+            else:
+                print("No history available.")
             continue
 
         try:
@@ -91,4 +116,5 @@ def repl():
 
 if __name__ == "__main__":
     repl()
+
 
