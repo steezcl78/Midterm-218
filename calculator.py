@@ -3,11 +3,14 @@ import importlib
 import logging
 from faker import Faker
 
-# Set up logging configuration
+# Set up logging configuration to both console and file
 logging.basicConfig(
     level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
     format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]  # Logs to console
+    handlers=[
+        logging.StreamHandler(),  # Logs to console
+        logging.FileHandler("calculator.log")  # Logs to a file named calculator.log
+    ]
 )
 
 
