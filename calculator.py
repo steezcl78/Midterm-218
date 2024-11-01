@@ -11,38 +11,8 @@ logging.basicConfig(
 )
 
 # Command Interface
-class Command:
-    def execute(self):
-        pass
-
-# Built-in commands (Add, Subtract, Multiply, Divide)
 
 
-class SubtractCommand(Command):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def execute(self):
-        return self.x - self.y
-
-class MultiplyCommand(Command):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def execute(self):
-        return self.x * self.y
-
-class DivideCommand(Command):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def execute(self):
-        if self.y == 0:
-            return "Error: Division by zero"
-        return self.x / self.y
 
 # Invoker with plugin support
 class CalculatorInvoker:
